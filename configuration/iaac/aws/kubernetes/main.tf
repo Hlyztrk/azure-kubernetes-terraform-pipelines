@@ -1,3 +1,6 @@
+# arn:aws:s3:::mylafossebucket
+# vpc-00baedcb6e853fb32
+
 terraform {
   required_providers {
     kubernetes = {
@@ -27,7 +30,7 @@ module "lfacademy-cluster" {
   source          = "terraform-aws-modules/eks/aws"
   cluster_name    = "lfacademy-cluster"
   cluster_version = "1.28"
-  subnet_ids      = ["subnet-0565c72c8be2a4a50", "subnet-0e0be61b12e125be5"]
+  subnet_ids      = ["subnet-01a8d07a16dcd7e7b", "subnet-0fb51c97d8d2b3b2d"]
   vpc_id                         = aws_default_vpc.default.id
   cluster_endpoint_public_access = true
   eks_managed_node_groups = {
@@ -77,4 +80,5 @@ module "lfacademy-cluster" {
 
 provider "aws" {
   region  = "us-east-1"
+  profile = "lafosse-profile"
 }
