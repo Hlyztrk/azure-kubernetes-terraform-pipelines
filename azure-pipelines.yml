@@ -60,5 +60,5 @@ stages:
         connectionType: 'kubernetesServiceConnection'
         kubernetesServiceConnection: 'azure-kubernetes-connection'
         namespace: 'default'
-        manifests: '$(System.ArtifactsDirectory)/deployment.yaml'
+        manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
         containers: 'hlyztrk/currency-exchange-devops:$(tag)'
