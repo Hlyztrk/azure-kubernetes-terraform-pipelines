@@ -24,7 +24,6 @@ steps:
   inputs:
     command: 'init'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
-    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFilePath)'
     backendType: 'azurerm'
     backendServiceArm: 'azure-resource-manager-conn'
     backendAzureRmSubscriptionId: 'b12e66be-f455-4c9a-bcff-461973906d6d'
@@ -36,11 +35,11 @@ steps:
     backendAzureRmKey: 'kubernetes-dev.tfstate'
     allowTelemetryCollection: true
 
-# - task: TerraformCLI@2
-#   displayName: "terraform apply"
-#   inputs:
-#     command: 'apply'
-#     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
-#     environmentServiceName: 'azure-resource-connection'
-#     commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publicKey.secureFilePath)'
-#     allowTelemetryCollection: true
+- task: TerraformCLI@2
+  displayName: "terraform apply"
+  inputs:
+    command: 'apply'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
+    environmentServiceName: 'azure-resource-manager-conn'
+    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publicKey.secureFilePath)'
+    allowTelemetryCollection: true
