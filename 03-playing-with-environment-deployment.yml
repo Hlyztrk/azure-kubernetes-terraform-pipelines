@@ -13,9 +13,9 @@ stages:
 
 - stage: DevDeploy
   jobs:
-  # - job: DevJob
-  #   steps:
-  #   - bash: echo "Start DevDeploy"
+  - job: DevJob
+    steps:
+    - bash: echo "Start DevDeploy"
   - deployment: DevDeployJob
     environment: Dev
     strategy: 
