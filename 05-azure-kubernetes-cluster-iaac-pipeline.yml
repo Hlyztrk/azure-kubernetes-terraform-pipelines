@@ -10,7 +10,7 @@ steps:
   displayName: 'Run a one-line script'
 
 - task: DownloadSecureFile@1
-  name: publicKey
+  name: publickey
   inputs:
     secureFile: 'azure_rsa.pub'
 
@@ -19,26 +19,27 @@ steps:
     terraformVersion: '1.5.7'
 
 - task: TerraformCLI@2
-  displayName: "terraform init"
+  displayName: 'terraform init'
   inputs:
     command: 'init'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
+    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFilePath)'
     backendType: 'azurerm'
-    backendServiceArm: 'azure-resource-connection'
+    backendServiceArm: 'azure-resources-manager-service-connection'
     backendAzureRmSubscriptionId: 'b12e66be-f455-4c9a-bcff-461973906d6d'
     ensureBackend: true
     backendAzureRmResourceGroupName: 'terraform-backend-rg'
     backendAzureRmResourceGroupLocation: 'uksouth'
-    backendAzureRmStorageAccountName: 'storageaccounthlyztrk'
-    backendAzureRmContainerName: 'storageaccounthlyztrkcontainer'
+    backendAzureRmStorageAccountName: 'storageaccounthozturk'
+    backendAzureRmContainerName: 'storageaccounthozturkcontainer'
     backendAzureRmKey: 'kubernetes-dev.tfstate'
     allowTelemetryCollection: true
 
-- task: TerraformCLI@2
-  displayName: "terraform apply"
-  inputs:
-    command: 'apply'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
-    environmentServiceName: 'azure-resource-connection'
-    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publicKey.secureFilePath)'
-    allowTelemetryCollection: true
+# - task: TerraformCLI@2
+#   displayName: "terraform apply"
+#   inputs:
+#     command: 'apply'
+#     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
+#     environmentServiceName: 'azure-resource-connection'
+#     commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publicKey.secureFilePath)'
+#     allowTelemetryCollection: true
