@@ -44,7 +44,7 @@ stages:
   displayName: Deploy Image to K8S
   jobs:
   - job: Deploy
-    displayName:
+    displayName: Deploy Docker Image
     steps: 
     - task: DownloadPipelineArtifact@2
       displayName: 'Download Artifacts'
@@ -52,7 +52,7 @@ stages:
         buildType: 'current'
         artifactName: 'manifests'
         itemPattern: '**/*.yaml'
-        targetPath: '$(Build.ArtifactsDirectory)'
+        targetPath: '$(System.ArtifactsDirectory)'
     - task: KubernetesManifest@1
       displayName: 'Deploy to K8S'
       inputs:
